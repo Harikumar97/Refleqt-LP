@@ -3,100 +3,144 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   Check, Calendar, ShoppingCart, Sparkles, PenTool,
-  Users, Cpu, Send, ChevronRight, Zap, Eye,
+  Users, Cpu, Send, Zap,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const campaignCards = [
-  {
-    id: 'lead',
-    title: 'Lead Generation',
-    description: 'Capture and nurture high-intent prospects',
-    color: 'refleqt-orange',
-    image: `${import.meta.env.BASE_URL}images/card-lead-1.png`,
-  },
-  {
-    id: 'micro',
-    title: 'Micro Campaign',
-    description: 'Quick wins for immediate impact',
-    color: 'refleqt-gold',
-    image: `${import.meta.env.BASE_URL}images/card-micro-1.png`,
-  },
-  {
-    id: 'website',
-    title: 'Website Content',
-    description: 'Complete pages that convert',
-    color: 'refleqt-green',
-    image: `${import.meta.env.BASE_URL}images/card-website-1.png`,
-  },
-  {
-    id: 'technical',
-    title: 'Technical Docs',
-    description: 'Clear documentation for your product',
-    color: 'refleqt-blue',
-    image: `${import.meta.env.BASE_URL}images/card-tech-1.png`,
-  },
-];
-
-/* ── Pipeline stages for the animated command center ── */
-const pipelineStages = [
-  { icon: ShoppingCart, label: 'Selected', color: '#D4652A' },
-  { icon: Calendar,     label: 'Scheduled', color: '#C9A227' },
-  { icon: PenTool,      label: 'Crafted', color: '#2D5A4A' },
-  { icon: Eye,          label: 'Reviewed', color: '#3A5A7C' },
-  { icon: Send,         label: 'Deployed', color: '#D4652A' },
-];
-
-const calendarDays = [
-  { day: 'Mon', items: [{ color: '#D4652A40', h: 28 }] },
-  { day: 'Tue', items: [{ color: '#C9A22740', h: 20 }, { color: '#2D5A4A40', h: 16 }] },
-  { day: 'Wed', items: [{ color: '#D4652A40', h: 24 }] },
-  { day: 'Thu', items: [{ color: '#3A5A7C40', h: 32 }] },
-  { day: 'Fri', items: [{ color: '#C9A22740', h: 18 }, { color: '#D4652A40', h: 14 }] },
-];
-
-const teamNodes = [
-  { label: 'Copywriter', initials: 'CW', bg: '#D4652A15', border: '#D4652A30' },
-  { label: 'Designer', initials: 'DS', bg: '#C9A22715', border: '#C9A22730' },
-  { label: 'Strategist', initials: 'ST', bg: '#2D5A4A15', border: '#2D5A4A30' },
+  { id: 'lead', title: 'Lead Generation', description: 'Capture and nurture high-intent prospects', color: 'refleqt-orange', image: `${import.meta.env.BASE_URL}images/card-lead-1.png` },
+  { id: 'micro', title: 'Micro Campaign', description: 'Quick wins for immediate impact', color: 'refleqt-gold', image: `${import.meta.env.BASE_URL}images/card-micro-1.png` },
+  { id: 'website', title: 'Website Content', description: 'Complete pages that convert', color: 'refleqt-green', image: `${import.meta.env.BASE_URL}images/card-website-1.png` },
+  { id: 'technical', title: 'Technical Docs', description: 'Clear documentation for your product', color: 'refleqt-blue', image: `${import.meta.env.BASE_URL}images/card-tech-1.png` },
 ];
 
 export function SectionProduct() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const marketplaceRef = useRef<HTMLDivElement>(null);
-  const commandRef = useRef<HTMLDivElement>(null);
   const [selectedCard, setSelectedCard] = useState<string | null>(null);
+
+  /* ── Command Center refs ── */
+  const ccRef = useRef<HTMLDivElement>(null);
+  const ccHeaderRef = useRef<HTMLDivElement>(null);
+  const phase1Ref = useRef<HTMLDivElement>(null);   // selection → schedule
+  const phase2Ref = useRef<HTMLDivElement>(null);   // crafting
+  const phase3Ref = useRef<HTMLDivElement>(null);   // deploy
+  const morphBlobRef = useRef<HTMLDivElement>(null); // central morphing blob
+  const labelRef1 = useRef<HTMLDivElement>(null);
+  const labelRef2 = useRef<HTMLDivElement>(null);
+  const labelRef3 = useRef<HTMLDivElement>(null);
   const triggersRef = useRef<ScrollTrigger[]>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      /* ── Marketplace cards stagger in ── */
+      /* ── Marketplace cards ── */
       const cards = marketplaceRef.current?.querySelectorAll('.campaign-card');
       if (cards) {
         gsap.set(cards, { opacity: 0, y: 50 });
         const t = ScrollTrigger.create({
-          trigger: marketplaceRef.current,
-          start: 'top 75%',
+          trigger: marketplaceRef.current, start: 'top 75%',
           onEnter: () => gsap.to(cards, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out' }),
           once: true,
         });
         triggersRef.current.push(t);
       }
 
-      /* ── Command center elements stagger in ── */
-      const els = commandRef.current?.querySelectorAll('.cc-anim');
-      if (els) {
-        gsap.set(els, { opacity: 0, y: 36 });
-        const t = ScrollTrigger.create({
-          trigger: commandRef.current,
-          start: 'top 72%',
-          onEnter: () => gsap.to(els, { opacity: 1, y: 0, duration: 0.55, stagger: 0.09, ease: 'power2.out' }),
-          once: true,
-        });
-        triggersRef.current.push(t);
-      }
+      /* ══════════ COMMAND CENTER — Morphing scroll timeline ══════════ */
+      const cc = ccRef.current;
+      if (!cc) return;
+
+      // Initial states
+      gsap.set(ccHeaderRef.current, { opacity: 0, y: 40 });
+      gsap.set(morphBlobRef.current, { opacity: 0, scale: 0, borderRadius: '50%' });
+      gsap.set(phase1Ref.current, { opacity: 0, scale: 0.6 });
+      gsap.set(phase2Ref.current, { opacity: 0, scale: 0.6, y: 30 });
+      gsap.set(phase3Ref.current, { opacity: 0, scale: 0.6, y: 30 });
+      gsap.set(labelRef1.current, { opacity: 0, y: 20 });
+      gsap.set(labelRef2.current, { opacity: 0, y: 20 });
+      gsap.set(labelRef3.current, { opacity: 0, y: 20 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: cc,
+          start: 'top top',
+          end: '+=350%',
+          pin: true,
+          scrub: 0.6,
+        }
+      });
+      if (tl.scrollTrigger) triggersRef.current.push(tl.scrollTrigger);
+
+      /* ── Phase 0 (0-8%): Header fades in ── */
+      tl.to(ccHeaderRef.current, { opacity: 1, y: 0, duration: 0.08, ease: 'power3.out' }, 0);
+
+      /* ── Phase 1 (8-30%): Blob morphs in as circle → campaign cards morph from blob ── */
+      // Blob appears as small circle
+      tl.to(morphBlobRef.current, {
+        opacity: 1, scale: 1, duration: 0.1, ease: 'back.out(1.4)',
+      }, 0.08);
+
+      // Blob morphs from circle to rounded rectangle
+      tl.to(morphBlobRef.current, {
+        borderRadius: '24px', scaleX: 1.6, scaleY: 0.9,
+        duration: 0.08, ease: 'power2.inOut',
+      }, 0.16);
+
+      // Phase 1 content fades in (campaign selection mini-cards)
+      tl.to(phase1Ref.current, {
+        opacity: 1, scale: 1, duration: 0.06, ease: 'power2.out',
+      }, 0.2);
+      tl.to(labelRef1.current, { opacity: 1, y: 0, duration: 0.04 }, 0.22);
+
+      /* ── Phase 2 (30-55%): Selection morphs into Calendar+Crafting ── */
+      // Phase 1 morphs out
+      tl.to(phase1Ref.current, {
+        opacity: 0, scale: 0.85, y: -20, duration: 0.06, ease: 'power2.in',
+      }, 0.30);
+      tl.to(labelRef1.current, { opacity: 0, y: -10, duration: 0.03 }, 0.30);
+
+      // Blob morphs to wider shape
+      tl.to(morphBlobRef.current, {
+        borderRadius: '28px', scaleX: 2.2, scaleY: 1.1,
+        duration: 0.1, ease: 'elastic.out(1, 0.6)',
+      }, 0.34);
+
+      // Phase 2 content rises into view
+      tl.to(phase2Ref.current, {
+        opacity: 1, scale: 1, y: 0, duration: 0.08, ease: 'power3.out',
+      }, 0.38);
+      tl.to(labelRef2.current, { opacity: 1, y: 0, duration: 0.04 }, 0.40);
+
+      /* ── Phase 3 (55-80%): Crafting morphs into Deployment ── */
+      tl.to(phase2Ref.current, {
+        opacity: 0, scale: 0.85, y: -20, duration: 0.06, ease: 'power2.in',
+      }, 0.55);
+      tl.to(labelRef2.current, { opacity: 0, y: -10, duration: 0.03 }, 0.55);
+
+      // Blob morphs to dispersed shape
+      tl.to(morphBlobRef.current, {
+        borderRadius: '50%', scaleX: 1.4, scaleY: 1.4,
+        duration: 0.12, ease: 'elastic.out(1, 0.5)',
+      }, 0.59);
+
+      // Phase 3 content
+      tl.to(phase3Ref.current, {
+        opacity: 1, scale: 1, y: 0, duration: 0.08, ease: 'power3.out',
+      }, 0.64);
+      tl.to(labelRef3.current, { opacity: 1, y: 0, duration: 0.04 }, 0.66);
+
+      /* ── Phase 4 (80-100%): Everything pulses then holds ── */
+      tl.to(morphBlobRef.current, {
+        scale: 1.5, opacity: 0.4, duration: 0.1, ease: 'power1.inOut',
+      }, 0.82);
+      tl.to(morphBlobRef.current, {
+        scale: 1.3, opacity: 0.6, duration: 0.08, ease: 'power1.inOut',
+      }, 0.90);
+
+      // Hold
+      tl.to({}, { duration: 0.1 });
+
     }, sectionRef);
 
     return () => { triggersRef.current.forEach(st => st.kill()); triggersRef.current = []; ctx.revert(); };
@@ -114,14 +158,10 @@ export function SectionProduct() {
               Campaigns built for YOUR business. Browse what's recommended, select what fits your moment.
             </p>
           </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {campaignCards.map((card) => (
-              <div
-                key={card.id}
-                className={`campaign-card group relative bg-white rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 cursor-pointer ${
-                  selectedCard === card.id ? 'ring-2 ring-refleqt-orange scale-105' : ''
-                }`}
+              <div key={card.id}
+                className={`campaign-card group relative bg-white rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 cursor-pointer ${selectedCard === card.id ? 'ring-2 ring-refleqt-orange scale-105' : ''}`}
                 onClick={() => setSelectedCard(selectedCard === card.id ? null : card.id)}
               >
                 <div className="aspect-[4/3] overflow-hidden">
@@ -140,7 +180,6 @@ export function SectionProduct() {
               </div>
             ))}
           </div>
-
           <div className="text-center">
             <Button className="bg-refleqt-orange hover:bg-refleqt-orange/90 text-white px-8 py-3 btn-lift" disabled={!selectedCard}>
               <ShoppingCart className="w-5 h-5 mr-2" />
@@ -150,216 +189,213 @@ export function SectionProduct() {
         </div>
       </div>
 
-      {/* ═══════════  COMMAND CENTER  ═══════════ */}
-      <div ref={commandRef} id="dashboard" className="py-24 md:py-32 bg-refleqt-dark overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6 lg:px-8">
+      {/* ═══════════  COMMAND CENTER — MORPHING  ═══════════ */}
+      <div
+        ref={ccRef}
+        id="dashboard"
+        className="min-h-screen bg-refleqt-dark flex flex-col items-center justify-center overflow-hidden relative"
+      >
+        {/* Header */}
+        <div ref={ccHeaderRef} className="absolute top-12 md:top-16 text-center z-20 px-6">
+          <h2 className="text-headline md:text-display-sm text-cream mb-3">Your Command Center</h2>
+          <p className="text-body text-gray-500 max-w-lg mx-auto">
+            Scroll to watch your campaign journey unfold.
+          </p>
+        </div>
 
-          {/* Header */}
-          <div className="text-center mb-16 md:mb-20 cc-anim">
-            <h2 className="text-headline md:text-display-sm text-cream mb-4">Your Command Center</h2>
-            <p className="text-body-lg text-gray-400 max-w-2xl mx-auto">
-              Watch campaigns come alive. From selection to deployment — every step, animated in real time.
-            </p>
-          </div>
+        {/* Central morphing blob — the shape that transitions between phases */}
+        <div
+          ref={morphBlobRef}
+          className="absolute w-[200px] h-[200px] md:w-[260px] md:h-[260px] will-change-transform"
+          style={{
+            background: 'radial-gradient(ellipse at 40% 40%, rgba(212,101,42,0.08) 0%, rgba(201,162,39,0.05) 40%, rgba(45,90,74,0.04) 70%, transparent 100%)',
+            border: '1px solid rgba(255,255,255,0.04)',
+          }}
+        />
 
-          {/* ── Animated Pipeline ── */}
-          <div className="cc-anim mb-16 md:mb-20">
-            <div className="relative flex items-center justify-between max-w-3xl mx-auto px-2">
-              {/* Connecting line behind stages */}
-              <svg className="absolute inset-0 w-full h-full pointer-events-none" preserveAspectRatio="none">
-                <line x1="10%" y1="50%" x2="90%" y2="50%" stroke="rgba(255,255,255,0.06)" strokeWidth="2" />
-                {/* Animated pulse traveling the line */}
-                <circle r="4" fill="#D4652A" opacity="0.6">
-                  <animate attributeName="cx" values="10%;90%;10%" dur="4s" repeatCount="indefinite" />
-                  <animate attributeName="cy" values="50%;50%;50%" dur="4s" repeatCount="indefinite" />
-                </circle>
-                <circle r="8" fill="#D4652A" opacity="0.15">
-                  <animate attributeName="cx" values="10%;90%;10%" dur="4s" repeatCount="indefinite" />
-                  <animate attributeName="cy" values="50%;50%;50%" dur="4s" repeatCount="indefinite" />
-                </circle>
-              </svg>
-
-              {pipelineStages.map((stage, i) => {
-                const Icon = stage.icon;
-                return (
-                  <div key={i} className="relative z-10 flex flex-col items-center gap-2">
-                    <div
-                      className="w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center border transition-all"
-                      style={{
-                        background: `${stage.color}12`,
-                        borderColor: `${stage.color}30`,
-                        animation: `pulse-glow 3s ease-in-out infinite ${i * 0.6}s`,
-                      }}
-                    >
-                      <Icon className="w-5 h-5 md:w-6 md:h-6" style={{ color: stage.color }} />
-                    </div>
-                    <span className="text-[10px] md:text-xs text-gray-500 font-medium tracking-wide uppercase">{stage.label}</span>
+        {/* ── Phase 1: Campaign Selection ── */}
+        <div ref={phase1Ref} className="absolute z-10 flex flex-col items-center">
+          <div className="flex gap-3 md:gap-4 mb-6">
+            {[
+              { icon: Sparkles, color: '#D4652A', label: 'Lead Gen' },
+              { icon: Zap, color: '#C9A227', label: 'Micro' },
+              { icon: PenTool, color: '#2D5A4A', label: 'Content' },
+            ].map((c, i) => {
+              const Icon = c.icon;
+              return (
+                <div key={i} className="flex flex-col items-center gap-2 will-change-transform">
+                  <div
+                    className="w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center border will-change-transform"
+                    style={{
+                      background: `${c.color}10`,
+                      borderColor: `${c.color}25`,
+                    }}
+                  >
+                    <Icon className="w-6 h-6" style={{ color: c.color }} />
                   </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* ── Two-column: Calendar + Team ── */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 mb-10">
-
-            {/* ── Dynamic Calendar ── */}
-            <div className="cc-anim bg-[#141414] rounded-2xl p-5 md:p-6 border border-white/[0.04]">
-              <div className="flex items-center justify-between mb-5">
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-refleqt-gold" />
-                  <span className="text-sm font-medium text-white">Campaign Calendar</span>
+                  <span className="text-[10px] text-gray-500 font-medium">{c.label}</span>
                 </div>
-                <span className="text-[11px] text-gray-600">This week</span>
-              </div>
+              );
+            })}
+          </div>
+          <div ref={labelRef1} className="text-center">
+            <p className="text-sm font-medium text-cream/80">Campaigns selected</p>
+            <p className="text-[11px] text-gray-600 mt-1">Tailored to your business profile</p>
+          </div>
+        </div>
 
-              <div className="flex gap-2">
-                {calendarDays.map((d, di) => (
-                  <div key={di} className="flex-1 flex flex-col items-center gap-1.5">
-                    <span className="text-[10px] text-gray-600 font-medium">{d.day}</span>
-                    <div className="w-full rounded-lg bg-white/[0.03] p-1.5 flex flex-col gap-1 min-h-[80px]">
-                      {d.items.map((item, ii) => (
-                        <div
-                          key={ii}
-                          className="w-full rounded-md"
-                          style={{
-                            height: item.h,
-                            background: item.color,
-                            animation: `calendar-pulse 3s ease-in-out infinite ${di * 0.3 + ii * 0.5}s`,
-                          }}
-                        />
-                      ))}
+        {/* ── Phase 2: Calendar + Human Crafting ── */}
+        <div ref={phase2Ref} className="absolute z-10 flex flex-col items-center">
+          <div className="flex items-center gap-6 md:gap-10 mb-6">
+            {/* Mini calendar */}
+            <div className="bg-[#181818] rounded-xl p-3 border border-white/[0.04] will-change-transform">
+              <div className="flex items-center gap-1.5 mb-2">
+                <Calendar className="w-3.5 h-3.5 text-refleqt-gold" />
+                <span className="text-[10px] text-gray-400 font-medium">Schedule</span>
+              </div>
+              <div className="flex gap-1">
+                {['M', 'T', 'W', 'T', 'F'].map((d, i) => (
+                  <div key={i} className="flex flex-col items-center gap-1">
+                    <span className="text-[8px] text-gray-600">{d}</span>
+                    <div className="w-6 h-12 rounded bg-white/[0.02] flex flex-col gap-0.5 p-0.5">
+                      {i % 2 === 0 && <div className="w-full h-3 rounded-sm" style={{ background: '#D4652A25' }} />}
+                      {i % 3 === 0 && <div className="w-full h-2 rounded-sm" style={{ background: '#C9A22720' }} />}
+                      {i === 2 && <div className="w-full h-4 rounded-sm" style={{ background: '#2D5A4A20' }} />}
                     </div>
                   </div>
                 ))}
               </div>
-
-              {/* Tiny animated ticker */}
-              <div className="mt-4 flex items-center gap-2 overflow-hidden">
-                <div className="w-1.5 h-1.5 rounded-full bg-refleqt-green" style={{ animation: 'pulse-glow 2s ease-in-out infinite' }} />
-                <div className="text-[11px] text-gray-500 whitespace-nowrap" style={{ animation: 'ticker-scroll 12s linear infinite' }}>
-                  Lead Gen Campaign scheduled for Tuesday &nbsp;·&nbsp; Micro Campaign draft ready &nbsp;·&nbsp; Website content in review &nbsp;·&nbsp; Tech docs deployed
-                </div>
-              </div>
             </div>
 
-            {/* ── Team + AI Collaboration ── */}
-            <div className="cc-anim bg-[#141414] rounded-2xl p-5 md:p-6 border border-white/[0.04]">
-              <div className="flex items-center justify-between mb-5">
-                <div className="flex items-center gap-2">
-                  <Users className="w-4 h-4 text-refleqt-green" />
-                  <span className="text-sm font-medium text-white">Your Team</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-refleqt-green" />
-                  <span className="text-[11px] text-gray-500">All active</span>
-                </div>
+            {/* Flow arrow */}
+            <svg width="40" height="24" className="text-gray-700">
+              <path d="M 4 12 Q 20 4 36 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 2">
+                <animate attributeName="stroke-dashoffset" from="10" to="0" dur="1.5s" repeatCount="indefinite" />
+              </path>
+              <circle r="2" fill="#D4652A" opacity="0.5">
+                <animateMotion dur="1.5s" repeatCount="indefinite" path="M 4 12 Q 20 4 36 12" />
+              </circle>
+            </svg>
+
+            {/* Human crafters */}
+            <div className="bg-[#181818] rounded-xl p-3 border border-white/[0.04] will-change-transform">
+              <div className="flex items-center gap-1.5 mb-2">
+                <Users className="w-3.5 h-3.5 text-refleqt-green" />
+                <span className="text-[10px] text-gray-400 font-medium">Crafting</span>
               </div>
-
-              {/* Team nodes with connecting lines to central AI */}
-              <div className="relative flex items-center justify-center py-6">
-                {/* SVG connection lines */}
-                <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 160">
-                  {/* Lines from each team node to the AI center */}
-                  <path d="M 80 50 Q 160 50 200 80" fill="none" stroke="rgba(212,101,42,0.12)" strokeWidth="1.5" strokeDasharray="4 3">
-                    <animate attributeName="stroke-dashoffset" from="14" to="0" dur="2s" repeatCount="indefinite" />
-                  </path>
-                  <path d="M 80 110 Q 160 110 200 80" fill="none" stroke="rgba(201,162,39,0.12)" strokeWidth="1.5" strokeDasharray="4 3">
-                    <animate attributeName="stroke-dashoffset" from="14" to="0" dur="2.4s" repeatCount="indefinite" />
-                  </path>
-                  <path d="M 80 80 L 200 80" fill="none" stroke="rgba(45,90,74,0.12)" strokeWidth="1.5" strokeDasharray="4 3">
-                    <animate attributeName="stroke-dashoffset" from="14" to="0" dur="1.8s" repeatCount="indefinite" />
-                  </path>
-                  {/* Lines from AI to output */}
-                  <path d="M 200 80 Q 280 50 340 60" fill="none" stroke="rgba(212,101,42,0.1)" strokeWidth="1.5" strokeDasharray="4 3">
-                    <animate attributeName="stroke-dashoffset" from="0" to="-14" dur="2s" repeatCount="indefinite" />
-                  </path>
-                  <path d="M 200 80 Q 280 110 340 100" fill="none" stroke="rgba(212,101,42,0.1)" strokeWidth="1.5" strokeDasharray="4 3">
-                    <animate attributeName="stroke-dashoffset" from="0" to="-14" dur="2.3s" repeatCount="indefinite" />
-                  </path>
-                  {/* Flowing dots */}
-                  <circle r="2" fill="#D4652A" opacity="0.4">
-                    <animateMotion dur="2.5s" repeatCount="indefinite" path="M 80 50 Q 160 50 200 80" />
-                  </circle>
-                  <circle r="2" fill="#C9A227" opacity="0.4">
-                    <animateMotion dur="3s" repeatCount="indefinite" path="M 80 110 Q 160 110 200 80" />
-                  </circle>
-                  <circle r="2" fill="#2D5A4A" opacity="0.4">
-                    <animateMotion dur="2s" repeatCount="indefinite" path="M 80 80 L 200 80" />
-                  </circle>
-                </svg>
-
-                {/* Team avatars — left */}
-                <div className="flex flex-col gap-3 z-10">
-                  {teamNodes.map((t, i) => (
-                    <div key={i} className="flex items-center gap-2">
-                      <div
-                        className="w-9 h-9 rounded-full flex items-center justify-center text-[11px] font-semibold border"
-                        style={{ background: t.bg, borderColor: t.border, color: t.border.replace('30', '') }}
-                      >
-                        {t.initials}
-                      </div>
-                      <span className="text-[11px] text-gray-500 hidden md:block">{t.label}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Central AI node */}
-                <div className="mx-12 md:mx-16 z-10">
-                  <div className="relative">
+              <div className="flex items-center gap-2">
+                {[
+                  { initials: 'CW', bg: '#D4652A12', border: '#D4652A30' },
+                  { initials: 'DS', bg: '#C9A22712', border: '#C9A22730' },
+                  { initials: 'ST', bg: '#2D5A4A12', border: '#2D5A4A30' },
+                ].map((t, i) => (
+                  <div key={i} className="relative">
                     <div
-                      className="absolute -inset-3 rounded-full border border-refleqt-orange/10"
-                      style={{ animation: 'pulse-glow 3s ease-in-out infinite' }}
-                    />
-                    <div className="w-14 h-14 rounded-2xl bg-refleqt-orange/10 border border-refleqt-orange/20 flex items-center justify-center">
-                      <Cpu className="w-6 h-6 text-refleqt-orange" />
+                      className="w-8 h-8 rounded-full flex items-center justify-center text-[9px] font-bold border"
+                      style={{ background: t.bg, borderColor: t.border, color: t.border.replace('30', '80') }}
+                    >
+                      {t.initials}
                     </div>
-                    <span className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] text-refleqt-orange font-medium tracking-wider uppercase whitespace-nowrap">AI Engine</span>
+                    {/* AI sparkle overlay */}
+                    <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-refleqt-orange/20 flex items-center justify-center">
+                      <Cpu className="w-1.5 h-1.5 text-refleqt-orange" />
+                    </div>
                   </div>
-                </div>
-
-                {/* Output — right */}
-                <div className="flex flex-col gap-3 z-10">
-                  <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-refleqt-orange/50" />
-                    <span className="text-[11px] text-gray-500">Campaigns</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Send className="w-4 h-4 text-refleqt-gold/50" />
-                    <span className="text-[11px] text-gray-500">Deployments</span>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
-
-          {/* ── Live Activity Feed ── */}
-          <div className="cc-anim bg-[#141414] rounded-2xl p-5 md:p-6 border border-white/[0.04]">
-            <div className="flex items-center gap-2 mb-4">
-              <Zap className="w-4 h-4 text-refleqt-orange" />
-              <span className="text-sm font-medium text-white">Live Activity</span>
-            </div>
-            <div className="space-y-3">
-              {[
-                { text: 'Lead Gen Campaign moved to production', accent: '#D4652A', time: '2m ago' },
-                { text: 'AI generated 3 headline variants for Micro Campaign', accent: '#C9A227', time: '8m ago' },
-                { text: 'Designer reviewed Website Content assets', accent: '#2D5A4A', time: '14m ago' },
-                { text: 'Technical Docs deployed to knowledge base', accent: '#3A5A7C', time: '1h ago' },
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-3 py-2 border-b border-white/[0.03] last:border-0"
-                  style={{ animation: `feed-slide-in 0.5s ease-out ${i * 0.12}s both` }}
-                >
-                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: item.accent }} />
-                  <span className="text-sm text-gray-400 flex-1">{item.text}</span>
-                  <span className="text-[10px] text-gray-600 flex-shrink-0">{item.time}</span>
-                  <ChevronRight className="w-3 h-3 text-gray-700" />
-                </div>
-              ))}
-            </div>
+          <div ref={labelRef2} className="text-center">
+            <p className="text-sm font-medium text-cream/80">Scheduled & crafted by humans + AI</p>
+            <p className="text-[11px] text-gray-600 mt-1">Every deliverable handcrafted, AI-augmented</p>
           </div>
+        </div>
 
+        {/* ── Phase 3: Deployment Dispersal ── */}
+        <div ref={phase3Ref} className="absolute z-10 flex flex-col items-center">
+          <div className="relative w-[280px] h-[180px] md:w-[360px] md:h-[220px] mb-6">
+            {/* Central AI node */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-refleqt-orange/10 border border-refleqt-orange/20 flex items-center justify-center">
+                <Cpu className="w-6 h-6 md:w-7 md:h-7 text-refleqt-orange" />
+              </div>
+            </div>
+
+            {/* Dispersal SVG — organic curves radiating outward */}
+            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 360 220">
+              {/* Organic curves from center to each channel */}
+              <path d="M 180 110 C 140 60 80 40 40 50" fill="none" stroke="rgba(212,101,42,0.15)" strokeWidth="1.5">
+                <animate attributeName="stroke-dasharray" values="0 200;200 0" dur="2s" repeatCount="indefinite" />
+              </path>
+              <path d="M 180 110 C 220 50 280 30 320 45" fill="none" stroke="rgba(201,162,39,0.15)" strokeWidth="1.5">
+                <animate attributeName="stroke-dasharray" values="0 200;200 0" dur="2.3s" repeatCount="indefinite" />
+              </path>
+              <path d="M 180 110 C 130 150 70 170 30 175" fill="none" stroke="rgba(45,90,74,0.15)" strokeWidth="1.5">
+                <animate attributeName="stroke-dasharray" values="0 200;200 0" dur="2.6s" repeatCount="indefinite" />
+              </path>
+              <path d="M 180 110 C 240 160 300 175 340 170" fill="none" stroke="rgba(58,90,124,0.15)" strokeWidth="1.5">
+                <animate attributeName="stroke-dasharray" values="0 200;200 0" dur="2.1s" repeatCount="indefinite" />
+              </path>
+
+              {/* Dispersing dots along curves */}
+              <circle r="3" fill="#D4652A" opacity="0.5">
+                <animateMotion dur="2s" repeatCount="indefinite" path="M 180 110 C 140 60 80 40 40 50" />
+              </circle>
+              <circle r="3" fill="#C9A227" opacity="0.5">
+                <animateMotion dur="2.3s" repeatCount="indefinite" path="M 180 110 C 220 50 280 30 320 45" />
+              </circle>
+              <circle r="3" fill="#2D5A4A" opacity="0.5">
+                <animateMotion dur="2.6s" repeatCount="indefinite" path="M 180 110 C 130 150 70 170 30 175" />
+              </circle>
+              <circle r="3" fill="#3A5A7C" opacity="0.5">
+                <animateMotion dur="2.1s" repeatCount="indefinite" path="M 180 110 C 240 160 300 175 340 170" />
+              </circle>
+
+              {/* Secondary trailing dots */}
+              <circle r="2" fill="#D4652A" opacity="0.2">
+                <animateMotion dur="2s" begin="0.5s" repeatCount="indefinite" path="M 180 110 C 140 60 80 40 40 50" />
+              </circle>
+              <circle r="2" fill="#C9A227" opacity="0.2">
+                <animateMotion dur="2.3s" begin="0.6s" repeatCount="indefinite" path="M 180 110 C 220 50 280 30 320 45" />
+              </circle>
+              <circle r="2" fill="#2D5A4A" opacity="0.2">
+                <animateMotion dur="2.6s" begin="0.7s" repeatCount="indefinite" path="M 180 110 C 130 150 70 170 30 175" />
+              </circle>
+              <circle r="2" fill="#3A5A7C" opacity="0.2">
+                <animateMotion dur="2.1s" begin="0.5s" repeatCount="indefinite" path="M 180 110 C 240 160 300 175 340 170" />
+              </circle>
+            </svg>
+
+            {/* Channel endpoints */}
+            {[
+              { icon: Send, label: 'LinkedIn', x: 'left-0 top-4', color: '#D4652A' },
+              { icon: Send, label: 'Twitter', x: 'right-0 top-2', color: '#C9A227' },
+              { icon: Send, label: 'Email', x: 'left-0 bottom-2', color: '#2D5A4A' },
+              { icon: Send, label: 'Website', x: 'right-0 bottom-4', color: '#3A5A7C' },
+            ].map((ch, i) => {
+              const Icon = ch.icon;
+              return (
+                <div key={i} className={`absolute ${ch.x} flex items-center gap-1.5`}>
+                  <div className="w-8 h-8 md:w-9 md:h-9 rounded-lg flex items-center justify-center border"
+                    style={{ background: `${ch.color}10`, borderColor: `${ch.color}20` }}>
+                    <Icon className="w-3.5 h-3.5" style={{ color: ch.color }} />
+                  </div>
+                  <span className="text-[9px] text-gray-500 font-medium hidden md:block">{ch.label}</span>
+                </div>
+              );
+            })}
+          </div>
+          <div ref={labelRef3} className="text-center">
+            <p className="text-sm font-medium text-cream/80">Deployed everywhere, simultaneously</p>
+            <p className="text-[11px] text-gray-600 mt-1">One click. All channels. Your brand, consistent.</p>
+          </div>
+        </div>
+
+        {/* Scroll progress indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+          <div className="w-6 h-0.5 rounded-full bg-refleqt-orange/40 cc-progress-dot" />
+          <div className="w-6 h-0.5 rounded-full bg-white/10 cc-progress-dot" />
+          <div className="w-6 h-0.5 rounded-full bg-white/10 cc-progress-dot" />
         </div>
       </div>
     </section>
