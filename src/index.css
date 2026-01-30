@@ -209,3 +209,19 @@
 .btn-lift:active {
   transform: translateY(0);
 }
+
+/* Orbital spin animation */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes counter-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.08); }
+}
