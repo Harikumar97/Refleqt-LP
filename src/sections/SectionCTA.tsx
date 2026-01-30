@@ -9,13 +9,11 @@ gsap.registerPlugin(ScrollTrigger);
 export function SectionCTA() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const figureRef = useRef<HTMLImageElement>(null);
   const triggersRef = useRef<ScrollTrigger[]>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.set(contentRef.current, { opacity: 0, y: 50 });
-      gsap.set(figureRef.current, { opacity: 0, scale: 0.8, y: 30 });
 
       const scrollTl = gsap.timeline({
         scrollTrigger: {
@@ -37,14 +35,6 @@ export function SectionCTA() {
         ease: 'power2.out'
       }, 0);
 
-      scrollTl.to(figureRef.current, {
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        duration: 0.5,
-        ease: 'power2.out'
-      }, 0.1);
-
     }, sectionRef);
 
     return () => {
@@ -61,17 +51,6 @@ export function SectionCTA() {
       className="min-h-screen bg-cream flex items-center justify-center py-24 md:py-32"
     >
       <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-        {/* Welcoming figure */}
-        <div className="mb-8 md:mb-12">
-          <img
-            ref={figureRef}
-            src={`${import.meta.env.BASE_URL}images/silhouette-hero.png`}
-            alt=""
-            className="h-32 md:h-48 mx-auto object-contain will-change-transform"
-            style={{ filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.1))' }}
-          />
-        </div>
-
         {/* Content */}
         <div ref={contentRef} className="will-change-transform">
           <h2 className="text-headline md:text-display text-refleqt-dark mb-6">
