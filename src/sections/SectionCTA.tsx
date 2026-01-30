@@ -65,7 +65,7 @@ export function SectionCTA() {
         <div className="mb-8 md:mb-12">
           <img
             ref={figureRef}
-            src="/images/silhouette-hero.png"
+            src={`${import.meta.env.BASE_URL}images/silhouette-hero.png`}
             alt=""
             className="h-32 md:h-48 mx-auto object-contain will-change-transform"
             style={{ filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.1))' }}

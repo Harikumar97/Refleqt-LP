@@ -12,28 +12,28 @@ const campaignCards = [
     title: 'Lead Generation',
     description: 'Capture and nurture high-intent prospects',
     color: 'refleqt-orange',
-    image: '/images/card-lead-1.png',
+    image: `${import.meta.env.BASE_URL}images/card-lead-1.png`,
   },
   {
     id: 'micro',
     title: 'Micro Campaign',
     description: 'Quick wins for immediate impact',
     color: 'refleqt-gold',
-    image: '/images/card-micro-1.png',
+    image: `${import.meta.env.BASE_URL}images/card-micro-1.png`,
   },
   {
     id: 'website',
     title: 'Website Content',
     description: 'Complete pages that convert',
     color: 'refleqt-green',
-    image: '/images/card-website-1.png',
+    image: `${import.meta.env.BASE_URL}images/card-website-1.png`,
   },
   {
     id: 'technical',
     title: 'Technical Docs',
     description: 'Clear documentation for your product',
     color: 'refleqt-blue',
-    image: '/images/card-tech-1.png',
+    image: `${import.meta.env.BASE_URL}images/card-tech-1.png`,
   },
 ];
 
