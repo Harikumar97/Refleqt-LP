@@ -1,69 +1,106 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Sparkles, Target, FileText, Calendar, Cpu, User, Building2 } from 'lucide-react';
+import { Database, Zap, Brain, ArrowRight, Cpu } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const pillars = [
-  { id: 'orange', color: 'refleqt-orange', name: 'Campaigns', icon: Sparkles },
-  { id: 'gold', color: 'refleqt-gold', name: 'Strategy', icon: Target },
-  { id: 'green', color: 'refleqt-green', name: 'Structure', icon: FileText },
-  { id: 'blue', color: 'refleqt-blue', name: 'Execution', icon: Calendar },
+const contextLayers = [
+  {
+    id: 'static',
+    icon: Database,
+    label: 'Static Foundation',
+    items: ['Business model', 'Target audience', 'Brand voice', 'Competitive positioning'],
+    color: '#D4652A',
+    bgOpacity: '0.06',
+  },
+  {
+    id: 'dynamic',
+    icon: Zap,
+    label: 'Dynamic Layer',
+    items: ['Market signals', 'Performance feedback', 'Strategic shifts', 'Customer intelligence'],
+    color: '#C9A227',
+    bgOpacity: '0.05',
+  },
+  {
+    id: 'derived',
+    icon: Brain,
+    label: 'Derived Intelligence',
+    items: ['Audience segments', 'Channel recommendations', 'Messaging effectiveness', 'Competitive gaps'],
+    color: '#2D5A4A',
+    bgOpacity: '0.05',
+  },
 ];
 
 export function SectionSolution() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const constructRef = useRef<HTMLDivElement>(null);
   const text1Ref = useRef<HTMLDivElement>(null);
   const text2Ref = useRef<HTMLDivElement>(null);
   const text3Ref = useRef<HTMLDivElement>(null);
+  const constructRef = useRef<HTMLDivElement>(null);
+  const layerRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cdtRef = useRef<HTMLDivElement>(null);
+  const connRef = useRef<SVGSVGElement>(null);
   const triggersRef = useRef<ScrollTrigger[]>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.set(constructRef.current, { opacity: 0, scale: 0.7 });
+      gsap.set(constructRef.current, { opacity: 0, scale: 0.8 });
       gsap.set(text1Ref.current, { opacity: 0, y: 30 });
       gsap.set(text2Ref.current, { opacity: 0, y: 30 });
       gsap.set(text3Ref.current, { opacity: 0, y: 30 });
+      layerRefs.current.forEach(el => el && gsap.set(el, { opacity: 0, x: -30, scale: 0.9 }));
+      cdtRef.current && gsap.set(cdtRef.current, { opacity: 0, scale: 0, borderRadius: '50%' });
+      connRef.current && gsap.set(connRef.current, { opacity: 0, scaleX: 0 });
 
       const scrollTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=250%',
+          end: '+=300%',
           pin: true,
           scrub: 0.5,
         }
       });
 
-      if (scrollTl.scrollTrigger) {
-        triggersRef.current.push(scrollTl.scrollTrigger);
+      if (scrollTl.scrollTrigger) triggersRef.current.push(scrollTl.scrollTrigger);
+
+      /* Phase 1: Construct + text1 + layers build (0-35%) */
+      scrollTl.to(text1Ref.current, { opacity: 1, y: 0, duration: 0.08, ease: 'power2.out' }, 0);
+      scrollTl.to(constructRef.current, { opacity: 1, scale: 1, duration: 0.1, ease: 'power2.out' }, 0.03);
+
+      // Layers stagger in
+      layerRefs.current.forEach((el, i) => {
+        if (!el) return;
+        scrollTl.to(el, { opacity: 1, x: 0, scale: 1, duration: 0.08, ease: 'back.out(1.3)' }, 0.08 + i * 0.06);
+      });
+
+      /* Phase 2: Text change + CDT appears (35-65%) */
+      scrollTl.to(text1Ref.current, { opacity: 0, y: -15, duration: 0.04 }, 0.33);
+      scrollTl.to(text2Ref.current, { opacity: 1, y: 0, duration: 0.08, ease: 'power2.out' }, 0.35);
+
+      // Connector draws
+      if (connRef.current) {
+        scrollTl.to(connRef.current, { opacity: 1, scaleX: 1, duration: 0.06, ease: 'power2.out', transformOrigin: 'left center' }, 0.38);
       }
 
-      // Phase 1: Construct + text appear (0-15%)
-      scrollTl.to(constructRef.current, {
-        opacity: 1, scale: 1, duration: 0.15, ease: 'power2.out'
-      }, 0);
+      // CDT morphs in
+      if (cdtRef.current) {
+        scrollTl.to(cdtRef.current, { opacity: 1, scale: 1, duration: 0.06, ease: 'back.out(2)' }, 0.42);
+        scrollTl.to(cdtRef.current, { borderRadius: '20px', duration: 0.04, ease: 'elastic.out(1,0.6)' }, 0.47);
+      }
 
-      scrollTl.to(text1Ref.current, {
-        opacity: 1, y: 0, duration: 0.1, ease: 'power2.out'
-      }, 0.05);
+      /* Phase 3: Text change — compounding message (65-85%) */
+      scrollTl.to(text2Ref.current, { opacity: 0, y: -15, duration: 0.04 }, 0.63);
+      scrollTl.to(text3Ref.current, { opacity: 1, y: 0, duration: 0.08, ease: 'power2.out' }, 0.65);
 
-      // Phase 2: Text change (15-40%)
-      scrollTl.to(text1Ref.current, { opacity: 0, y: -20, duration: 0.05 }, 0.15);
-      scrollTl.to(text2Ref.current, { opacity: 1, y: 0, duration: 0.1 }, 0.18);
+      // Pulse all layers
+      layerRefs.current.forEach((el) => {
+        if (el) scrollTl.to(el, { scale: 1.02, duration: 0.08, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 0.68);
+      });
 
-      scrollTl.to(constructRef.current, {
-        scale: 1.05, duration: 0.2, ease: 'power1.inOut'
-      }, 0.2);
-
-      // Phase 3: Text change (40-65%)
-      scrollTl.to(text2Ref.current, { opacity: 0, y: -20, duration: 0.05 }, 0.4);
-      scrollTl.to(text3Ref.current, { opacity: 1, y: 0, duration: 0.1 }, 0.43);
-
-      // Hold
-      scrollTl.to({}, { duration: 0.35 });
+      /* Hold */
+      scrollTl.to({}, { duration: 0.12 });
 
     }, sectionRef);
 
@@ -81,143 +118,97 @@ export function SectionSolution() {
       className="section-pinned bg-cream flex items-center justify-center overflow-hidden"
     >
       {/* Text overlays */}
-      <div className="absolute inset-0 flex flex-col items-center justify-start pt-24 md:pt-32 pointer-events-none z-20">
-        <div ref={text1Ref} className="text-center px-6">
-          <h2 className="text-display-sm md:text-display text-refleqt-dark mb-4">
-            It starts with you.
+      <div className="absolute inset-0 flex flex-col items-center justify-start pt-16 md:pt-24 pointer-events-none z-20">
+        <div ref={text1Ref} className="text-center px-6 max-w-2xl">
+          <h2 className="text-display-sm md:text-display text-refleqt-dark mb-3">
+            It starts with context.
           </h2>
-          <p className="text-subhead text-refleqt-gray">
-            Your business. Your context. Your goals.
+          <p className="text-body-lg text-refleqt-gray">
+            Three layers of intelligence that evolve with your business.
           </p>
         </div>
 
-        <div ref={text2Ref} className="text-center px-6 absolute top-24 md:top-32">
-          <h2 className="text-display-sm md:text-display text-refleqt-dark mb-4">
-            Refleqt learns your business.
+        <div ref={text2Ref} className="text-center px-6 absolute top-16 md:top-24 max-w-2xl">
+          <h2 className="text-display-sm md:text-display text-refleqt-dark mb-3">
+            Your dedicated AI trains.
           </h2>
-          <p className="text-subhead text-refleqt-gray">
-            Not a questionnaire. An understanding.
+          <p className="text-body-lg text-refleqt-gray">
+            A Contextual Data Transformer built exclusively for your business.
           </p>
         </div>
 
-        <div ref={text3Ref} className="text-center px-6 absolute top-24 md:top-32">
-          <h2 className="text-display-sm md:text-display text-refleqt-dark mb-4">
-            AI architects your marketing.
+        <div ref={text3Ref} className="text-center px-6 absolute top-16 md:top-24 max-w-2xl">
+          <h2 className="text-display-sm md:text-display text-refleqt-dark mb-3">
+            Intelligence compounds.
           </h2>
-          <p className="text-subhead text-refleqt-gray">
-            Tailored to your business. Not templates. Yours.
+          <p className="text-subhead gradient-text">
+            Not templates. Understanding.
           </p>
         </div>
       </div>
 
-      {/* Central construct - data flow visualization */}
-      <div
-        ref={constructRef}
-        className="relative flex items-center justify-center pointer-events-none z-10 mt-16 md:mt-20"
-      >
-        <div className="relative w-[340px] h-[280px] md:w-[520px] md:h-[340px]">
-          {/* Subtle grid */}
-          <svg className="absolute inset-0 w-full h-full opacity-[0.04]" viewBox="0 0 520 340">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <line key={`h${i}`} x1="0" y1={56 * i + 30} x2="520" y2={56 * i + 30} stroke="currentColor" strokeWidth="0.5" className="text-refleqt-dark" />
-            ))}
-            {Array.from({ length: 9 }).map((_, i) => (
-              <line key={`v${i}`} x1={60 * i + 20} y1="0" x2={60 * i + 20} y2="340" stroke="currentColor" strokeWidth="0.5" className="text-refleqt-dark" />
-            ))}
-          </svg>
-
-          {/* Input nodes - left side */}
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 flex flex-col gap-5">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white shadow-sm border border-black/5 flex items-center justify-center">
-                <User className="w-5 h-5 md:w-6 md:h-6 text-refleqt-dark/40" />
-              </div>
-              <span className="text-xs text-refleqt-gray hidden md:block">Your Profile</span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white shadow-sm border border-black/5 flex items-center justify-center">
-                <Building2 className="w-5 h-5 md:w-6 md:h-6 text-refleqt-dark/40" />
-              </div>
-              <span className="text-xs text-refleqt-gray hidden md:block">Your Business</span>
-            </div>
-          </div>
-
-          {/* Central AI hub */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div className="relative">
+      {/* ─── Central visualization ─── */}
+      <div ref={constructRef} className="relative flex items-center justify-center gap-4 md:gap-8 mt-12 md:mt-16 z-10 px-4">
+        {/* Context layers stack */}
+        <div className="flex flex-col gap-2.5 md:gap-3">
+          {contextLayers.map((layer, i) => {
+            const Icon = layer.icon;
+            return (
               <div
-                className="absolute -inset-5 rounded-full border-2 border-refleqt-orange/10"
-                style={{ animation: 'pulse-glow 4s ease-in-out infinite' }}
-              />
-              <div
-                className="absolute -inset-10 rounded-full border border-refleqt-orange/5"
-                style={{ animation: 'pulse-glow 4s ease-in-out infinite 1s' }}
-              />
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white shadow-lg border border-refleqt-orange/20 flex items-center justify-center">
-                <Cpu className="w-7 h-7 md:w-9 md:h-9 text-refleqt-orange" />
-              </div>
-            </div>
-          </div>
-
-          {/* Output nodes - right side */}
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col gap-3">
-            {pillars.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div key={item.id} className="flex items-center gap-3">
-                  <span className="text-xs text-refleqt-gray hidden md:block text-right">{item.name}</span>
-                  <div className="w-11 h-11 md:w-12 md:h-12 rounded-xl bg-white shadow-sm border border-black/5 flex items-center justify-center">
-                    <Icon className={`w-4 h-4 md:w-5 md:h-5 text-${item.color}`} />
+                key={layer.id}
+                ref={el => { layerRefs.current[i] = el; }}
+                className="flex items-center gap-3 md:gap-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-3 md:px-5 md:py-4 border border-black/[0.04] shadow-sm will-change-transform"
+                style={{ borderLeftWidth: '3px', borderLeftColor: `${layer.color}60` }}
+              >
+                <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `${layer.color}${layer.bgOpacity === '0.06' ? '0F' : '0D'}` }}>
+                  <Icon className="w-4 h-4 md:w-5 md:h-5" style={{ color: layer.color }} />
+                </div>
+                <div>
+                  <span className="text-[11px] md:text-sm font-semibold text-refleqt-dark block">{layer.label}</span>
+                  <div className="flex flex-wrap gap-x-2 gap-y-0.5 mt-0.5">
+                    {layer.items.map((item, j) => (
+                      <span key={j} className="text-[9px] md:text-[10px] text-refleqt-gray">{item}{j < layer.items.length - 1 ? ' ·' : ''}</span>
+                    ))}
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Connector arrow */}
+        <svg
+          ref={connRef}
+          className="flex-shrink-0 w-10 md:w-20 h-16 pointer-events-none will-change-transform"
+          viewBox="0 0 80 60"
+          fill="none"
+          style={{ transformOrigin: 'left center' }}
+        >
+          <path d="M 4 30 C 30 30 50 30 72 30" stroke="rgba(212,101,42,0.2)" strokeWidth="1.5" strokeDasharray="4 3">
+            <animate attributeName="stroke-dashoffset" from="14" to="0" dur="1.5s" repeatCount="indefinite" />
+          </path>
+          <polygon points="70,25 80,30 70,35" fill="rgba(212,101,42,0.3)" />
+          <circle r="2" fill="#D4652A" opacity="0.4">
+            <animateMotion dur="2s" repeatCount="indefinite" path="M 4 30 C 30 30 50 30 72 30" />
+          </circle>
+        </svg>
+
+        {/* CDT node */}
+        <div ref={cdtRef} className="flex flex-col items-center will-change-transform">
+          <div className="relative">
+            {/* Outer pulse */}
+            <div className="absolute -inset-4 md:-inset-6 rounded-full" style={{ background: 'radial-gradient(circle, rgba(201,162,39,0.08) 0%, transparent 70%)', animation: 'pulse-glow 3s ease-in-out infinite' }} />
+            <div className="w-16 h-16 md:w-24 md:h-24 bg-white shadow-xl border-2 border-refleqt-gold/25 rounded-2xl flex items-center justify-center">
+              <Cpu className="w-7 h-7 md:w-10 md:h-10 text-refleqt-gold" />
+            </div>
           </div>
-
-          {/* Animated flow lines */}
-          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 520 340" preserveAspectRatio="none">
-            {/* Input to center */}
-            <path d="M 80 140 Q 170 140 260 170" fill="none" stroke="hsl(22 68% 49% / 0.12)" strokeWidth="1.5" strokeDasharray="6 4">
-              <animate attributeName="stroke-dashoffset" from="20" to="0" dur="2s" repeatCount="indefinite" />
-            </path>
-            <path d="M 80 200 Q 170 200 260 170" fill="none" stroke="hsl(22 68% 49% / 0.12)" strokeWidth="1.5" strokeDasharray="6 4">
-              <animate attributeName="stroke-dashoffset" from="20" to="0" dur="2.5s" repeatCount="indefinite" />
-            </path>
-
-            {/* Center to outputs */}
-            <path d="M 260 170 Q 340 110 420 100" fill="none" stroke="hsl(22 68% 49% / 0.12)" strokeWidth="1.5" strokeDasharray="6 4">
-              <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="2s" repeatCount="indefinite" />
-            </path>
-            <path d="M 260 170 Q 350 150 420 148" fill="none" stroke="hsl(45 66% 47% / 0.12)" strokeWidth="1.5" strokeDasharray="6 4">
-              <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="2.3s" repeatCount="indefinite" />
-            </path>
-            <path d="M 260 170 Q 350 190 420 196" fill="none" stroke="hsl(158 34% 26% / 0.12)" strokeWidth="1.5" strokeDasharray="6 4">
-              <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="2.6s" repeatCount="indefinite" />
-            </path>
-            <path d="M 260 170 Q 340 230 420 244" fill="none" stroke="hsl(207 35% 35% / 0.12)" strokeWidth="1.5" strokeDasharray="6 4">
-              <animate attributeName="stroke-dashoffset" from="0" to="-20" dur="2.9s" repeatCount="indefinite" />
-            </path>
-
-            {/* Flowing dots */}
-            <circle r="2.5" fill="hsl(22 68% 49% / 0.3)">
-              <animateMotion dur="3s" repeatCount="indefinite" path="M 80 140 Q 170 140 260 170" />
-            </circle>
-            <circle r="2.5" fill="hsl(22 68% 49% / 0.3)">
-              <animateMotion dur="3.5s" repeatCount="indefinite" path="M 80 200 Q 170 200 260 170" />
-            </circle>
-            <circle r="2" fill="hsl(22 68% 49% / 0.2)">
-              <animateMotion dur="3s" repeatCount="indefinite" path="M 260 170 Q 340 110 420 100" />
-            </circle>
-            <circle r="2" fill="hsl(45 66% 47% / 0.2)">
-              <animateMotion dur="3.3s" repeatCount="indefinite" path="M 260 170 Q 350 150 420 148" />
-            </circle>
-            <circle r="2" fill="hsl(158 34% 26% / 0.2)">
-              <animateMotion dur="3.6s" repeatCount="indefinite" path="M 260 170 Q 350 190 420 196" />
-            </circle>
-            <circle r="2" fill="hsl(207 35% 35% / 0.2)">
-              <animateMotion dur="3.9s" repeatCount="indefinite" path="M 260 170 Q 340 230 420 244" />
-            </circle>
-          </svg>
+          <span className="mt-2 text-[10px] md:text-sm font-semibold text-refleqt-dark">Your CDT</span>
+          <span className="text-[8px] md:text-xs text-refleqt-gray">Per-Customer AI</span>
+          {/* Monthly cycle indicator */}
+          <div className="mt-2 flex items-center gap-1 px-2 py-0.5 rounded-full bg-refleqt-gold/8 border border-refleqt-gold/15">
+            <ArrowRight className="w-2.5 h-2.5 text-refleqt-gold/60" style={{ animation: 'spin-slow 3s linear infinite' }} />
+            <span className="text-[8px] md:text-[9px] text-refleqt-gold/70 font-medium">Monthly reinforcement</span>
+          </div>
         </div>
       </div>
     </section>
