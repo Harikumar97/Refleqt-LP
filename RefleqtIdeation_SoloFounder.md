@@ -49,6 +49,122 @@ The creator doesn't need to "get" you. The brief already does.
 
 ---
 
+## Smart Humans Feed Smart Systems
+
+Your team — whether it's two co-founders or twenty people — knows things about your business that no outsider ever will. The tone your CEO uses when she's excited about a feature. The specific objection that kills deals in the third sales call. The fact that your customers say "workflow" but mean "I'm drowning."
+
+**Smart humans are YOUR people.** They're the ones feeding context into Refleqt. Every rant on the vent board, every note after a team activity, every artifact uploaded — that's your team's intelligence becoming machine-readable.
+
+**Creative humans are the anonymous creators** on the other side. They turn that machine-readable context into real marketing.
+
+The chain looks like this:
+
+```
+Your team's knowledge → Refleqt context engine → Machine-generated brief → Creative human executes
+```
+
+Your smart humans don't need to be marketers. They just need to be themselves. The system translates their knowledge into briefs that creative humans can execute perfectly.
+
+---
+
+## The Freemium Entry: Your First Day on Refleqt
+
+You sign up. No credit card. Here's what you get immediately:
+
+### 1. Team Context Activities (Free)
+
+Refleqt suggests your first team activity. Something like:
+
+> **"Brand Voice Brawl"** — 30 minutes. Each team member records a 2-minute voice note answering: "How would you describe what we do to a stranger at a bar?" Then one person writes a single-page summary of what everyone said.
+
+Your team does the activity. Maybe on a Friday afternoon. Maybe during a team lunch. It's genuinely useful — you'll learn that your CTO describes the product completely differently from your sales lead. That's insight.
+
+When you're done, you upload the audio recordings and the written summary directly into the activity artifact that Refleqt created for you. The system knows:
+- What activity it recommended
+- That your team actually did it
+- Exactly what context came out of it
+- How to weight this source when building your business model
+
+More activities unlock over time:
+
+| Activity | What It Does for Your Team | What It Does for Refleqt |
+|----------|---------------------------|--------------------------|
+| **Brand Voice Brawl** | Surfaces misalignment in how people describe you | Maps brand voice from multiple internal perspectives |
+| **Competitor Roast** | Everyone dumps what they know about competitors | Builds competitive positioning context |
+| **Customer Story Swap** | Team shares their best/worst customer interactions | Extracts ICP signals, objection patterns, success triggers |
+| **The Rant Round** | 5 minutes each, unfiltered frustrations about the market | Captures unstructured founder/team cognition |
+| **Roadmap vs. Reality** | Compare what you planned vs. what you shipped | Maps strategic drift and actual priorities |
+
+Some activities are free. Premium ones (deeper, more structured, multi-session) are paid. But even the free ones generate real context that makes the system smarter.
+
+**The key:** these aren't disguised data forms. Your team gets genuine alignment value. The context farming is a silent side effect. You'd want to do these activities even if Refleqt didn't exist. Refleqt just captures the output and makes it machine-readable.
+
+### 2. The Marketing Calendar (Free)
+
+On day one, you also get access to a marketing calendar. It starts empty. You populate it manually with whatever you're already doing:
+
+- "Blog post about waste reduction — published Jan 15"
+- "LinkedIn campaign — running Feb 1-28"
+- "Webinar with FoodTech Weekly — March 12"
+- "Sales one-pager update — due next week"
+
+That's it. You're just logging what you're already doing. No AI. No recommendations. Just a clean, purpose-built marketing calendar.
+
+**Why this calendar is different from Google Sheets or Notion:**
+
+It's not a generic project tool. It's a **marketing artifact ledger**. Every entry has structure baked in:
+- What type of artifact is it? (content, campaign, event, asset)
+- What channel? (LinkedIn, email, website, direct)
+- What audience? (which ICP segment, if you know)
+- What outcome? (did it work? how do you know?)
+
+You don't have to fill all that in. But the fields exist. And as you populate them over weeks, the system starts seeing your marketing rhythm — what channels you use, how often you publish, what you prioritize, what slips.
+
+**The magic moment:** After a few weeks of manual entries + a couple team activities completed, Refleqt quietly starts showing a second layer on your calendar. Not your entries — **suggestions**. Greyed-out slots that say things like:
+
+> "Based on your cadence and context, you might want to consider a LinkedIn post about [topic] during this gap."
+
+That's the free-to-paid transition. The calendar went from a dumb ledger to an intelligent advisor. If you want the full recommendation engine + marketplace packs, you upgrade.
+
+### The Freemium → Paid Funnel
+
+| Tier | What You Get | Price |
+|------|-------------|-------|
+| **Free** | Manual calendar + team activities (free set) + basic context profile | $0 |
+| **Starter** | AI calendar suggestions + full activity library + context dashboard | $X/mo |
+| **Pro** | Marketplace access + execution maps + creator assignment + performance tracking | $XX/mo |
+
+The free tier is genuinely useful on its own. You get a marketing calendar and team alignment activities. Refleqt gets context. Everyone wins.
+
+---
+
+## The Context-Activity Pipeline: How the System Learns
+
+Here's what happens under the hood when your team completes an activity:
+
+```
+1. Refleqt recommends activity     →  "Brand Voice Brawl" appears in your dashboard
+       ↓
+2. Team performs activity            →  Discussion, alignment, genuine team value
+       ↓
+3. Team records output               →  Audio recordings + written summary page
+       ↓
+4. Upload into the artifact slot     →  Drag and drop into the specific activity card
+       ↓
+5. System processes                  →  Audio → transcript → structured context extraction
+       ↓
+6. Context profile updates           →  Brand voice data, team perspectives, terminology
+       ↓
+7. Recommendation engine improves    →  Future activities and suggestions get sharper
+       ↓
+8. System tracks the full chain      →  "I recommended X → team did X → context Y was extracted
+                                         → recommendation Z improved because of it"
+```
+
+That last step is the crucial one. The system doesn't just collect data — it tracks **which recommendations led to which context, which led to which improvements**. So it learns not just about your business, but about its own recommendation effectiveness. It knows which activities produce the richest context for businesses like yours.
+
+---
+
 ## The Solo Founder Position
 
 You're one person. You are the CEO, the strategist, the brand voice, the decision-maker, and probably the customer support too.
@@ -63,38 +179,13 @@ You don't have time to:
 
 Here's what your workflow looks like:
 
-1. **Onboard once.** Tell the system everything. It's automated — no calls, no intake meetings.
-2. **Browse your marketplace.** The AI generates campaign packs built specifically for your business. They show up like items in a store.
-3. **Buy what fits.** One click. The system assigns anonymous creators who get machine-generated briefs built from YOUR context.
-4. **Get paid results.** Deliverables come back. Performance is tracked. Money flows are automated.
+1. **Sign up free.** Start logging your marketing on the calendar. Do a couple team activities (even if your "team" is just you recording voice notes to yourself).
+2. **Context builds passively.** The system learns your business from your calendar entries, activity outputs, and vent board rants.
+3. **Suggestions appear.** The calendar starts recommending. Marketplace packs show up tailored to your moment.
+4. **Buy what fits.** One click. Anonymous creators get machine-generated briefs built from YOUR context.
+5. **Get tracked results.** Deliverables come back. Performance is measured. Everything feeds back in.
 
-You never manage a person. You never write a brief. You never sit in a review meeting. You just run your business and pick the marketing that fits your moment.
-
----
-
-## Smart Humans Create Smart Systems
-
-A common question: "But I want a human touch in my marketing."
-
-You'll get one. Here's the distinction:
-
-**Smart humans** built the Refleqt system — the AI, the context engine, the marketplace logic, the quality controls. That intelligence is baked into the machine permanently.
-
-**Creative humans** execute the work — copywriters, designers, strategists. Real people making real creative. They're just working from perfect briefs instead of broken telephone.
-
-The system doesn't replace creativity. It replaces the garbage communication pipeline that sits between your vision and the creative person's output.
-
-Think of it like this:
-
-| Old Way | Refleqt Way |
-|---------|-------------|
-| You explain your business on a call | System already knows your business |
-| Agency writes a brief (their interpretation) | Machine writes the brief (your context, directly) |
-| Creator reads the brief (their interpretation of the interpretation) | Creator reads a precise, context-rich brief |
-| 3 rounds of "that's not what I meant" | First draft is already in the ballpark |
-| You pay for the revision cycles | You pay for the output |
-
-The information goes from your brain → machine → creator. One hop. Not your brain → account manager → strategist → brief writer → creative director → creator. Six hops. Every hop loses signal.
+You never manage a person. You never write a brief. You never sit in a review meeting.
 
 ---
 
@@ -106,7 +197,7 @@ One morning you open Refleqt and see this in your marketplace:
 
 ---
 
-### 📦 PACK: "Zero Waste Launch Sprint"
+### PACK: "Zero Waste Launch Sprint"
 
 **Why now:** Your competitor FoodStack just raised a Series B and is running paid ads on "inventory management." Your context shows waste reduction is your differentiator. This pack positions you against their campaign directly.
 
@@ -176,22 +267,171 @@ Money in. Work out. Results tracked. No admin.
 
 ---
 
+## Data Architecture: How This Actually Runs
+
+A fair question: "This sounds like it needs a massive real-time data pipeline."
+
+It doesn't. Refleqt is a **sparse batch system**, not a streaming engine. Here's why that matters and how it works.
+
+### Why Sparse Batch, Not Real-Time
+
+Nothing in Refleqt requires instant processing:
+- Team activities happen once a week, maybe less
+- Calendar entries are added manually, a few per week
+- Vent board rants happen when they happen
+- CDT retraining is monthly
+- Marketplace pack generation is on-demand
+- Performance data arrives on platform reporting cycles (daily/weekly)
+
+There's no live video feed. No continuous sensor data. No millisecond trading decisions. This is **human-paced data** arriving in bursts, processed in batches.
+
+### The Data Flow
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    CONTEXT SOURCES                           │
+│                                                             │
+│  [Calendar Entries]  [Activity Uploads]  [Vent Board]       │
+│  [Tooling Extracts]  [Performance Data]  [Onboarding]       │
+│         │                  │                  │              │
+│         └──────────────────┼──────────────────┘              │
+│                            ▼                                │
+│                  ┌─────────────────┐                        │
+│                  │  INGEST QUEUE   │  ← Event-driven        │
+│                  │  (async jobs)   │     not streaming       │
+│                  └────────┬────────┘                        │
+│                           ▼                                 │
+│              ┌────────────────────────┐                     │
+│              │  CONTEXT PROCESSING    │                     │
+│              │                        │                     │
+│              │  • Audio → Transcript  │  ← Runs when        │
+│              │  • Text → Structured   │    artifacts are     │
+│              │  • Categorize + Tag    │    uploaded          │
+│              │  • Embed for search    │                     │
+│              └────────────┬───────────┘                     │
+│                           ▼                                 │
+│              ┌────────────────────────┐                     │
+│              │  BUSINESS CONTEXT      │                     │
+│              │  PROFILE (β)           │  ← Persistent       │
+│              │                        │    storage           │
+│              │  Static │ Dynamic │ AI │                     │
+│              └────────────┬───────────┘                     │
+│                           ▼                                 │
+│              ┌────────────────────────┐                     │
+│              │  CDT TRAINING          │  ← Monthly batch    │
+│              │  (scheduled job)       │    not continuous    │
+│              │                        │                     │
+│              │  Week 1-3: Collect     │                     │
+│              │  Week 4: Train         │                     │
+│              │  Post: Validate        │                     │
+│              └────────────┬───────────┘                     │
+│                           ▼                                 │
+│         ┌─────────────────┼─────────────────┐              │
+│         ▼                 ▼                  ▼              │
+│  [Calendar         [Marketplace        [Activity           │
+│   Suggestions]      Pack Gen]           Recommendations]   │
+│                                                             │
+│  All generated on-demand or on schedule — not streaming     │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Storage Architecture
+
+| Data Type | Storage | Why |
+|-----------|---------|-----|
+| User accounts, teams, billing | **Relational DB** (PostgreSQL) | Structured, transactional, needs ACID |
+| Calendar entries, activity records | **Relational DB** | Structured events with dates, types, relationships |
+| Audio recordings, uploaded files | **Object storage** (S3/equivalent) | Binary blobs, cheap, durable |
+| Transcripts, processed text, vent entries | **Document store** (within PostgreSQL JSONB or dedicated) | Semi-structured, variable schema per source |
+| Context embeddings for search/similarity | **Vector store** (pgvector or Pinecone) | Enables semantic search across context |
+| CDT model artifacts | **Object storage** | Versioned model files, rollback capability |
+| Recommendation tracking, activity lineage | **Relational DB** | "Recommended X → user did Y → extracted Z" chains |
+| Performance metrics (imported) | **Relational DB** | Time-series-like but low-frequency, batch imported |
+
+### Processing Architecture
+
+The key insight: **no streaming infrastructure needed**. No Kafka. No real-time event buses. No WebSocket pipelines for data processing.
+
+**What runs and when:**
+
+| Trigger | Process | Frequency |
+|---------|---------|-----------|
+| User uploads artifact | Audio transcription + text extraction + embedding | On-upload (async job queue) |
+| User adds calendar entry | Categorize + tag + update context profile | On-save (lightweight, near-instant) |
+| User writes vent entry | Text processing + structured extraction + embed | On-submit (async job) |
+| Monthly schedule fires | CDT retraining cycle (collect → train → validate → deploy) | Monthly |
+| Monthly schedule fires | Tooling ecosystem extraction (OAuth connect → pull → disconnect) | Monthly |
+| User opens marketplace | Generate/refresh pack recommendations from CDT | On-demand (cached, refreshed periodically) |
+| User opens calendar | Compute suggestion layer from context + CDT | On-demand (cached daily) |
+| Performance data import | Batch pull from connected platforms, update metrics | Daily or weekly (configurable) |
+
+**Job queue** (something like Celery, Bull, or Temporal):
+- Handles all async processing
+- Retries on failure
+- Prioritizes: user-facing jobs first, background enrichment second
+- No real-time pressure — a 30-second delay in processing an upload is perfectly fine
+
+### Computation Profile
+
+| Operation | Compute Cost | Frequency | Infrastructure |
+|-----------|-------------|-----------|----------------|
+| Audio transcription | Medium (API call to Whisper/Deepgram) | Per upload | External API, pay-per-use |
+| Text extraction + structuring | Low (LLM API call) | Per upload | External API, pay-per-use |
+| Embedding generation | Low (API call) | Per new text chunk | External API, pay-per-use |
+| CDT training | **High** (fine-tuning run) | Monthly | Scheduled compute (can use spot instances) |
+| Pack generation | Medium (LLM inference) | On-demand, cached | External API, pay-per-use |
+| Calendar suggestions | Low (inference from cached CDT) | Daily refresh | Standard server |
+
+The expensive computation (CDT training) happens once a month per customer. Everything else is lightweight API calls triggered by user actions. There's no always-on compute. The system sleeps when users aren't doing anything.
+
+**Total infrastructure for early stage:** One application server, one PostgreSQL instance (with pgvector), one object storage bucket, one job queue. That's it. Scale individual pieces as user count grows.
+
+---
+
+## The Self-Improving Recommendation Loop
+
+The system doesn't just serve recommendations. It tracks whether its recommendations work.
+
+```
+System recommends "Brand Voice Brawl" activity
+       ↓
+Team completes it → uploads audio + notes
+       ↓
+System extracts: 4 distinct brand voice perspectives,
+                  2 points of internal misalignment,
+                  1 new competitor mention
+       ↓
+System evaluates: "This activity produced HIGH context density
+                   for businesses in the B2B SaaS category"
+       ↓
+System learns: "Recommend Brand Voice Brawl earlier for similar
+               businesses. It produces 3x more brand voice context
+               than the standard onboarding questionnaire."
+       ↓
+Next similar business gets Brand Voice Brawl as their first
+suggested activity instead of their third.
+```
+
+Every recommendation→execution→outcome chain is logged. The system knows which activities produce the richest context, which calendar suggestions users act on, which marketplace packs get purchased and perform well. It's a recommendation engine that improves its own recommendation quality over time — without any real-time processing. Just batch evaluation of outcomes.
+
+---
+
 ## The Bottom Line
 
 Refleqt is not an AI that writes your marketing. It's not an agency with a chatbot. It's a system that:
 
-1. **Learns your business** so deeply that it can write briefs better than you could write them yourself
-2. **Generates strategic packs** timed to your market moment
-3. **Assigns real creative humans** who work from perfect context
-4. **Tracks everything** so every dollar has a measurable return
-5. **Runs itself** so you can run your business
+1. **Starts free.** Calendar + team activities. Genuinely useful on day one.
+2. **Learns your business** from your team's own intelligence — rants, activities, calendar entries
+3. **Generates strategic packs** timed to your market moment
+4. **Assigns real creative humans** who work from machine-perfect briefs
+5. **Tracks everything** so every dollar has a measurable return
+6. **Improves itself** by tracking which recommendations led to which outcomes
+7. **Runs on sparse batch processing** — no heavy infrastructure, no real-time compute, scales cleanly
 
-You are one person. Refleqt gives you the marketing output of a full team without the overhead of managing one.
-
-Smart humans created this system. Creative humans power it. You just use it.
+Your smart humans feed the system. Creative humans execute from it. The system connects them without the noise.
 
 ---
 
-*Refleqt — Your business context generates the strategy. Anonymous creators execute. Every result is tracked.*
+*Refleqt — Your team's intelligence becomes machine-readable. Anonymous creators execute. Every result compounds.*
 
 ---
