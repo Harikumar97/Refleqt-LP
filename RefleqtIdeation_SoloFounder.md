@@ -101,40 +101,135 @@ Some activities are free. Premium ones (deeper, more structured, multi-session) 
 
 ### 2. The Marketing Calendar (Free)
 
-On day one, you also get access to a marketing calendar. It starts empty. You populate it manually with whatever you're already doing:
+On day one, you also get access to a marketing calendar. It starts empty. You populate it manually with whatever you're already doing.
 
-- "Blog post about waste reduction — published Jan 15"
-- "LinkedIn campaign — running Feb 1-28"
-- "Webinar with FoodTech Weekly — March 12"
-- "Sales one-pager update — due next week"
+This is not Google Sheets with dates. This is not a Notion board. This is a **marketing artifact ledger** — purpose-built for the reality of how marketing actually works, with every field a seasoned marketing ops team would track but most businesses don't even know exists.
 
-That's it. You're just logging what you're already doing. No AI. No recommendations. Just a clean, purpose-built marketing calendar.
+**Why that matters:** Most founders and even most junior marketers operate from massive blind spots. They publish a blog post and call it "content marketing." They don't know that the same blog post has an SEO dimension, a technical SEO dimension, a keyword strategy dimension, a social distribution dimension, a conversion optimization dimension, and a performance attribution dimension — all of which determine whether that post actually does anything.
 
-**Why this calendar is different from Google Sheets or Notion:**
+Refleqt's calendar surfaces all of these. You don't have to fill everything in. But the fields are there. And just **seeing** them teaches you what real marketing operations looks like.
 
-It's not a generic project tool. It's a **marketing artifact ledger**. Every entry has structure baked in:
-- What type of artifact is it? (content, campaign, event, asset)
-- What channel? (LinkedIn, email, website, direct)
-- What audience? (which ICP segment, if you know)
-- What outcome? (did it work? how do you know?)
+---
 
-You don't have to fill all that in. But the fields exist. And as you populate them over weeks, the system starts seeing your marketing rhythm — what channels you use, how often you publish, what you prioritize, what slips.
+#### CALENDAR ENTRY: Full Field Architecture
+
+When you add an artifact to the calendar, here's what the entry looks like. Every section is collapsible. You fill in what you know. The rest stays empty until you learn why it matters.
+
+**— CORE IDENTITY —**
+
+| Field | What It Is | Why It Matters |
+|-------|-----------|----------------|
+| **Artifact Title** | What you call this thing | Internal reference. "Q1 Blog Post" is bad. "Waste Reduction ROI Calculator — Blog" is good. Naming discipline = thinking discipline. |
+| **Artifact Type** | Blog post, landing page, ad copy, email, social post, whitepaper, case study, video script, podcast episode, one-pager, infographic, webinar, press release, sales deck, technical doc | Each type has different success metrics, production workflows, and distribution strategies. A blog post and a landing page are not the same artifact even if they contain similar words. |
+| **Status** | Idea → Briefed → In Production → Review → Published → Measuring → Archived | Tracks where things actually are. Most marketing teams have no idea how many artifacts are stuck in "Review" for weeks. |
+| **Publish Date** | When it goes live | The calendar's core job. |
+| **Owner** | Who on your team is responsible | Not who writes it — who owns the outcome. |
+
+**— STRATEGIC CONTEXT —**
+
+| Field | What It Is | Why It Matters |
+|-------|-----------|----------------|
+| **Campaign** | Which campaign does this belong to? | Artifacts don't exist in isolation. A blog post, three LinkedIn ads, and an email sequence might all be part of "Q1 Waste Reduction Push." Grouping lets you measure campaign-level ROI, not just artifact-level. |
+| **Funnel Stage** | Top of funnel (awareness), Middle (consideration), Bottom (decision), Post-sale (retention/expansion) | Most businesses produce 90% top-of-funnel content and wonder why nobody converts. This field forces you to see your funnel balance. |
+| **ICP Segment** | Which ideal customer profile is this for? | "Everyone" is not a segment. If you sell to both restaurant chains and food distributors, a blog post targeting one will fail with the other. Tagging forces targeting discipline. |
+| **Buyer Persona** | Within the ICP, who specifically? (Operations Manager, CFO, Founder, Developer) | Same company, different person, different message. The CFO cares about ROI. The operations manager cares about daily workflow. Same product, different artifact. |
+| **Strategic Intent** | What is this artifact supposed to accomplish? (Generate leads, nurture existing, reactivate churned, enable sales, build authority, counter competitor) | "Brand awareness" is not a strategy. "Counter FoodStack's new pricing page with a comparison landing page" is a strategy. This field forces clarity. |
+| **Competitive Context** | Is this a response to a competitor move? Which one? | If FoodStack publishes a "waste management" blog, your response should be tagged. Over time, the system sees your competitive response patterns — speed, frequency, effectiveness. |
+
+**— SEO PARAMETERS —**
+
+This is where most businesses are completely blind. They write a blog post, publish it, and hope Google notices. That's not how any of this works.
+
+| Field | What It Is | Why It Matters |
+|-------|-----------|----------------|
+| **Primary Keyword** | The main search term this artifact targets | Every piece of content that touches your website should target a specific keyword. Not a vague topic — a specific phrase that real humans type into Google. "restaurant inventory management" not "inventory stuff." |
+| **Secondary Keywords** | 2-5 related terms | Google ranks pages for clusters of related terms, not single keywords. Your primary might be "restaurant inventory management" but secondaries could be "food waste tracking software," "kitchen inventory app," "restaurant supply chain automation." |
+| **Search Intent** | Informational, Navigational, Commercial, Transactional | This is the one most people miss entirely. Someone searching "what is restaurant inventory management" wants education (informational). Someone searching "best restaurant inventory software" wants to buy (commercial). The same keyword with different intent requires a completely different artifact. If you write an informational blog post for a transactional keyword, you will rank nowhere. |
+| **Keyword Difficulty (KD)** | How hard is it to rank for this term? (0-100 scale) | A KD of 80 means you're competing against established sites with massive domain authority. A startup should target KD 10-30 keywords first. This field forces you to check before you write, not after. |
+| **Monthly Search Volume** | How many people search this per month? | Volume × intent = opportunity. 10,000 searches/month at informational intent is less valuable than 500 searches/month at commercial intent for your exact ICP. |
+| **Current Ranking Position** | Where do you rank for this keyword today? | If you're already on page 2 (positions 11-20), a content refresh might push you to page 1. If you're not ranking at all, you need a new page. Different positions = different strategies. |
+| **SERP Features Present** | Does the search results page show featured snippets, People Also Ask, video carousels, local packs, knowledge panels? | If the SERP has a featured snippet, your content needs to be structured to win it (short paragraph answers, tables, lists). If there's a video carousel, maybe this keyword needs a video, not a blog post. The SERP tells you what format Google wants. Most people never look. |
+| **Keyword Cluster** | Which topic cluster does this keyword belong to? | Modern SEO is built on topic clusters: one pillar page supported by 5-15 cluster pages that interlink. If you're writing random blog posts without a cluster strategy, you're leaving rankings on the table. This field maps every artifact to its cluster. |
+| **Internal Link Targets** | Which existing pages on your site should this artifact link to? | Internal linking passes authority between pages. Every new piece of content should link to your most important pages. Most businesses never think about this. They publish and forget. |
+| **Target Featured Snippet** | Are you specifically formatting this to win a featured snippet? (Yes/No, and which type: paragraph, list, table) | Featured snippets get 30-50% of clicks on the SERP. If there's a snippet opportunity for your keyword, your content should be structured to capture it. This is not accidental — it's intentional formatting. |
+
+**— TECHNICAL SEO PARAMETERS —**
+
+This is where 95% of businesses have zero awareness. They think SEO is keywords. It's not. Technical SEO is the infrastructure that allows your content to be found at all.
+
+| Field | What It Is | Why It Matters |
+|-------|-----------|----------------|
+| **URL Slug** | The actual URL path (/blog/restaurant-waste-reduction-roi) | URLs are a ranking factor. Short, keyword-rich, hyphen-separated. Not /blog/post-12847. Not /blog/the-ultimate-complete-guide-to-everything-about-waste. Clean slugs. |
+| **Meta Title** | The title that appears in Google search results (50-60 characters) | This is your headline in Google. Not your blog post title — your SERP title. Different optimization. Must contain primary keyword, must be compelling enough to click, must be under 60 characters or it gets truncated. |
+| **Meta Description** | The description snippet in Google results (150-160 characters) | Not a ranking factor directly, but determines click-through rate. A good meta description with a clear value proposition can double your CTR at the same ranking position. |
+| **Header Structure** | H1 (one per page), H2s, H3s — outline of the page | Google reads your header hierarchy to understand content structure. One H1 containing primary keyword. H2s for major sections containing secondary keywords. H3s for subsections. Most pages have no structure or random header usage. |
+| **Schema Markup** | Structured data type (Article, FAQ, HowTo, Product, Review, LocalBusiness, Event) | Schema tells Google exactly what your page is. An FAQ schema can get your content displayed as expandable questions in search results. A HowTo schema can get step-by-step display. Most businesses don't add any schema — free visibility left on the table. |
+| **Canonical URL** | The "official" version of this URL | If the same content lives at multiple URLs (common with CMS platforms), the canonical tag tells Google which one to rank. Without it, you dilute your own authority across duplicates. |
+| **Index Status** | Should Google index this page? (Index / NoIndex) | Not everything should be indexed. Thank you pages, internal landing pages, staging URLs — noindex these. Bloating your index with low-value pages drags down your entire site's crawl efficiency. |
+| **Page Speed** | Load time target and actual (Largest Contentful Paint, First Input Delay, Cumulative Layout Shift — Core Web Vitals) | Google uses Core Web Vitals as a ranking factor. A page that loads in 4 seconds will rank below an identical page that loads in 1.5 seconds. These are measurable, improvable, and most businesses never check. |
+| **Mobile Rendering** | Does this page work properly on mobile? (Google indexes mobile-first) | Google ranks based on the mobile version of your page, not desktop. If your content is truncated, overlapping, or slow on mobile, your desktop rankings suffer too. |
+| **Image Alt Text** | Descriptive text for every image | Alt text is how Google understands images. It's also an accessibility requirement. Every image on a marketing page should have keyword-relevant alt text. Most have none. |
+| **Internal Link Anchor Text** | The clickable text used when linking to this page from other pages | "Click here" as anchor text tells Google nothing. "Restaurant waste reduction ROI calculator" as anchor text tells Google exactly what the linked page is about. Anchor text optimization across your site is one of the most underused SEO levers. |
+| **Crawl Directives** | Robots.txt rules, XML sitemap inclusion, crawl priority | Is this page in your sitemap? Is anything blocking Googlebot from reaching it? Is the page orphaned (no internal links pointing to it)? An orphaned page that's not in the sitemap might never get indexed regardless of content quality. |
+
+**— SOCIAL MEDIA & DISTRIBUTION PARAMETERS —**
+
+Publishing content without distribution is shouting into a void. Most businesses "post and pray." Here's what actually matters by platform:
+
+| Field | What It Is | Why It Matters |
+|-------|-----------|----------------|
+| **Distribution Channels** | Where will this artifact be promoted? (LinkedIn, Twitter/X, Instagram, TikTok, Facebook, YouTube, Email, Reddit, Slack communities, paid ads, syndication) | Each channel has different content formats, audience behaviors, and algorithm rules. A LinkedIn post is not a shortened blog post. An Instagram story is not a still image. Tagging channels forces format thinking. |
+| **LinkedIn: Hook Type** | First-line hook category (contrarian take, personal story, data point, question, bold claim) | LinkedIn's algorithm decides to show your post to your extended network based on engagement in the first 60 minutes. The hook determines whether people stop scrolling. "We reduced food waste by 43%..." is a data hook. "Every restaurant throws away $30K/year in food. Nobody talks about it." is a contrarian hook. Different hooks work for different audiences. |
+| **LinkedIn: Engagement Triggers** | Does the post ask a question? Include a poll? Tag people? Use a carousel? | LinkedIn's algorithm heavily weights comments over likes. Posts that generate comments get 5-10x more reach. A question at the end ("What's your waste reduction strategy?") is an explicit comment trigger. A carousel gets more dwell time than a text post. These are not tricks — they're how the algorithm determines value. |
+| **LinkedIn: Posting Time** | Scheduled publish time and day | LinkedIn activity peaks Tuesday-Thursday, 8-10 AM and 12-1 PM in your target timezone. Posting at 11 PM Sunday gets 80% less initial engagement, which tanks algorithmic distribution. |
+| **Twitter/X: Thread or Single** | Is this a thread (multi-tweet) or standalone? | Threads get 2-3x more engagement than single tweets for the same content. The algorithm rewards time-on-content. But threads need a strong hook tweet and a clear narrative arc. A thread that's just a blog post chopped up performs worse than a single punchy tweet. |
+| **Instagram: Format** | Feed post, carousel, Reel, Story | Instagram's algorithm currently prioritizes Reels over feed posts by 3-5x in reach. A carousel gets 1.5-2x the engagement of a single image. Stories are ephemeral but drive profile visits. The format decision should be made before content creation, not after. |
+| **Email: Segment** | Which email list segment receives this? | Sending everything to your entire list is the fastest way to destroy deliverability. Segment by engagement level, buyer stage, and interest. A "re-engagement" email to cold subscribers with a different subject line outperforms blasting the same message to everyone. |
+| **Email: Subject Line Variants** | A/B test options for the subject line | Subject line determines open rate. Open rate determines whether anyone sees your content at all. Always have 2-3 variants. The data from A/B tests feeds back into what messaging works for your audience. |
+| **Paid Promotion** | Is paid distribution budgeted for this artifact? How much? Which platform? | Organic reach on every platform is declining. A $50 LinkedIn boost on a high-performing organic post can 10x its reach. But boosting a post that already isn't performing is wasting money. The decision to spend should follow early organic performance data. |
+| **Repurposing Plan** | What other formats will this artifact become? (Blog → LinkedIn carousel → Email excerpt → Twitter thread → YouTube Short) | One piece of content should become 5-10 distribution artifacts across platforms. Most businesses create one thing, post it once, and move on. Repurposing multiplies your output without multiplying production cost. This field plans the repurposing chain at creation time, not as an afterthought. |
+
+**— PERFORMANCE & ATTRIBUTION —**
+
+The final layer. Most businesses publish and never look back. These fields close the loop.
+
+| Field | What It Is | Why It Matters |
+|-------|-----------|----------------|
+| **Primary KPI** | The one number that determines if this artifact succeeded (pageviews, conversion rate, leads generated, engagement rate, click-through rate, demo bookings) | If you can't name the one metric, you don't know why you're creating it. "Brand awareness" is not a KPI. "500 pageviews from organic search in 30 days" is a KPI. |
+| **Secondary KPIs** | Supporting metrics (time on page, bounce rate, scroll depth, social shares, email forwards) | These explain the *why* behind the primary KPI. If conversion rate is low but time on page is high, the content is engaging but the CTA is weak. If bounce rate is 90%, the content doesn't match search intent. |
+| **UTM Parameters** | Campaign, source, medium, term, content tags in the URL | UTMs are how you track which distribution channel drove which results. Without them, all your traffic shows up as "direct" or "referral" and you have no idea what's working. Every link you share should have UTMs. Every single one. |
+| **Attribution Model** | First touch, last touch, linear, time-decay, or position-based | If a lead reads your blog, then clicks a LinkedIn ad, then books a demo from an email — which artifact gets credit? The attribution model determines the answer. Most businesses use last-touch by default, which means they over-invest in bottom-of-funnel and starve the top. |
+| **Conversion Event** | What action counts as a conversion for this artifact? (Form fill, demo booking, free trial signup, purchase, email signup) | Different artifacts convert differently. A top-of-funnel blog might convert to email signups. A bottom-of-funnel landing page converts to demo bookings. Defining the event before publish means you measure the right thing. |
+| **30-Day Review** | Scheduled review date to check performance | Most artifacts are published and forgotten. A 30-day review date forces you to go back and look at the data. Did it hit the KPI? Why or why not? What would you change? This data feeds back into the context engine. |
+| **Lifetime Value Tag** | Is this artifact still generating value? (Active, Declining, Evergreen, Expired) | A blog post from 6 months ago might still be driving 200 organic visits/month. That's evergreen. A press release from last year gets 0 traffic. That's expired. Knowing which artifacts are still working lets you invest in updates rather than always creating net-new. |
+
+---
+
+**Why all these fields matter for Refleqt:**
+
+Every single field is a context signal. When you fill in "Primary Keyword: restaurant waste reduction" and "Search Intent: Commercial" and "Current Ranking Position: 14" — the system now knows you're trying to rank for a specific term, you're close to page 1, and the intent is commercial. That's enough for the AI to recommend: "Update this post with a comparison table and schema markup — you could move from position 14 to page 1 and capture commercial intent traffic."
+
+No human marketing consultant has the patience to review every field of every artifact for every client. The machine does. It reads every field, every entry, every relationship between entries, and generates recommendations from the complete picture.
+
+**For new marketers:** Just scrolling through these fields and reading the "Why It Matters" column is a marketing education. Most people don't know that search intent exists. Most people don't know that LinkedIn's algorithm weights comments over likes. Most people don't know what a canonical URL is or why it matters. The calendar teaches by structure — you learn what matters by seeing what the system asks you to track.
+
+---
 
 **The magic moment:** After a few weeks of manual entries + a couple team activities completed, Refleqt quietly starts showing a second layer on your calendar. Not your entries — **suggestions**. Greyed-out slots that say things like:
 
-> "Based on your cadence and context, you might want to consider a LinkedIn post about [topic] during this gap."
+> "Your blog post targeting 'restaurant waste reduction' is ranking at position 14. A content refresh with updated H2 structure and FAQ schema could push it to page 1. Estimated organic traffic gain: +340 visits/month at 3.2% commercial intent conversion rate = ~11 additional leads/month."
 
-That's the free-to-paid transition. The calendar went from a dumb ledger to an intelligent advisor. If you want the full recommendation engine + marketplace packs, you upgrade.
+That's not a vague suggestion. That's a specific, data-grounded recommendation built from the fields you populated. The calendar went from a dumb ledger to an intelligent advisor that speaks in numbers, not feelings.
 
 ### The Freemium → Paid Funnel
 
 | Tier | What You Get | Price |
 |------|-------------|-------|
-| **Free** | Manual calendar + team activities (free set) + basic context profile | $0 |
-| **Starter** | AI calendar suggestions + full activity library + context dashboard | $X/mo |
-| **Pro** | Marketplace access + execution maps + creator assignment + performance tracking | $XX/mo |
+| **Free** | Full calendar with all fields + team activities (free set) + basic context profile | $0 |
+| **Starter** | AI-powered calendar suggestions + full activity library + context dashboard + SEO recommendations | $X/mo |
+| **Pro** | Marketplace access + execution maps + creator assignment + performance tracking + full attribution | $XX/mo |
 
-The free tier is genuinely useful on its own. You get a marketing calendar and team alignment activities. Refleqt gets context. Everyone wins.
+The free tier is genuinely useful on its own. You get the most comprehensive marketing artifact calendar that exists. It teaches you what to track even if you never use the AI features. Refleqt gets context from everything you log. Everyone wins.
 
 ---
 
